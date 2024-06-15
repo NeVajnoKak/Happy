@@ -3,7 +3,7 @@ import adminLogo from '../../../assets/img/admin-logo.png';
 import { Link, useNavigate } from 'react-router-dom';
 
 const OffCanvas = ({ triggerId }) => {
-    const [activeLink, setActiveLink] = useState('');
+    const [activeLink, setActiveLink] = useState('clients');
     const navigate = useNavigate();
     const handleSetActive = (link) => {
         setActiveLink(link);
