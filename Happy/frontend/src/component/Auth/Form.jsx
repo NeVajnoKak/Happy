@@ -33,6 +33,7 @@ const Form = ({ authForm }) => {
       localStorage.setItem('authToken', data.token);
       // console.log('username : ' , data.username)
       localStorage.setItem('username', data.username)
+      localStorage.setItem('usertype', data.usertype)
       localStorage.setItem('isAuthenticated', true);
       navigate('/')
       window.location.reload(); 

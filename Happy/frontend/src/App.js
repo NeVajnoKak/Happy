@@ -10,27 +10,34 @@ import Register from "./pages/Auth/Register/Register";
 import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
 import { useEffect, useState } from "react";
+import AdminRoute from "./routes/AdminRoute"; 
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const [username, setUsername] = useState(localStorage.getItem('username'));
   const [token, setToken] = useState(localStorage.getItem('authToken'));
+  const [usertype, setUsertype] = useState(localStorage.getItem('usertype'));
+  
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
     localStorage.setItem('username', username);
     localStorage.setItem('authToken', token);
-  }, [isAuthenticated, username, token]);
+    localStorage.setItem('usertype', usertype); 
+    console.log(usertype)
+  }, [isAuthenticated, username, token, usertype]);
 
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('username');
     localStorage.removeItem('authToken');
+    localStorage.removeItem('usertype')
 
     setIsAuthenticated(false);
     setUsername(null);
     setToken(null);
+    setUsertype(null);
 
     navigate('/login');
     window.location.reload();
@@ -40,10 +47,13 @@ function App() {
     return isAuthenticated ? children : <Navigate to="/login" />;
   };
 
+  const isAdmin = usertype === 'admin';
+  console.log(isAuthenticated , ' usertype : ', usertype)
+
   return (
     <>
       <NoRenderOnPath noRenderPaths={['/login', '/register', '/profile/order', '/profile/history', '/admin/clients']}>
-        <Header isProfile={false} onLogout={handleLogout} />
+        <Header isAdmin={isAdmin} isProfile={false} onLogout={handleLogout} />
       </NoRenderOnPath>
       <Routes>
         <Route path="/" element={<Home />} />
@@ -70,10 +80,13 @@ function App() {
 
         {/* Admin */}
         <Route path="/admin/clients" element={
-          <ProtectedRoute>
+          
+          <AdminRoute isAuthenticated={isAuthenticated} usertype={usertype}>
             <Admin />
-          </ProtectedRoute>
+          </AdminRoute>
         } />
+
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </>
   );

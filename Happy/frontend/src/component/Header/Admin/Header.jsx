@@ -6,25 +6,30 @@ const Header = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const [username, setUsername] = useState(localStorage.getItem('username'));
   const [token, setToken] = useState(localStorage.getItem('authToken'));
+  const [usertype, setUsertype] = useState(localStorage.getItem('usertype'));
+  
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
     localStorage.setItem('username', username);
     localStorage.setItem('authToken', token);
-  }, [isAuthenticated, username, token]);
+    localStorage.setItem('usertype', usertype); 
+  }, [isAuthenticated, username, token, usertype]);
 
   const handleLogout = () => {
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('username');
     localStorage.removeItem('authToken');
-  
+    localStorage.removeItem('usertype')
+
     setIsAuthenticated(false);
     setUsername(null);
     setToken(null);
-  
+    setUsertype(null);
+
     navigate('/login');
-    window.location.reload(); 
+    window.location.reload();
   };
   
   

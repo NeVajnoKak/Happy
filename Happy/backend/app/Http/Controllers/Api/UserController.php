@@ -90,7 +90,8 @@ class UserController extends Controller
                 'status' => true,
                 'message' => 'User Logged In Successfully',
                 'token' => $user->createToken("API TOKEN")->plainTextToken,
-                'username' => $user->name
+                'username' => $user->name,
+                'usertype' => $user->usertype,
             ], 200);
 
         } catch (\Throwable $th) {
