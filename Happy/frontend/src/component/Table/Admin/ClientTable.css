@@ -1,0 +1,69 @@
+/* ClientTable.css */
+.client-table-container {
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+   
+    box-sizing: border-box;
+  }
+  
+  .client-table-container h2 {
+    margin-bottom: 10px;
+  }
+  
+  .client-table-container p {
+    margin-bottom: 20px;
+  }
+  
+  .add-button {
+    margin-bottom: 20px;
+    padding: 5px 20px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .client-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .client-table th, .client-table td {
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .client-table th {
+    background-color: #f9f9f9;
+  }
+  
+  .client-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .edit-button, .delete-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .edit-button {
+    color: #4CAF50;
+    margin-right: 10px;
+  }
+  
+  .delete-button {
+    color: #f44336;
+  }
+  
+  .client-title-text {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .client-under-title-text {
+    font-size: 13px;
+    font-weight: 400;
+    color: rgba(129, 144, 163, 1);
+  }

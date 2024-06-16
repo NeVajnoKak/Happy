@@ -91,7 +91,7 @@ function App() {
         <Route path="/admin/clients" element={
 
           <AdminRoute usertype={usertype}>
-            <Admin />
+            <Admin isClient={true}/>
           </AdminRoute>
         } />
 
