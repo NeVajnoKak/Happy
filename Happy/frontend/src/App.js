@@ -10,22 +10,23 @@ import Register from "./pages/Auth/Register/Register";
 import Cart from "./pages/Cart/Cart";
 import Admin from "./pages/Admin/Admin";
 import { useEffect, useState } from "react";
-import AdminRoute from "./routes/AdminRoute"; 
+import AdminRoute from "./routes/AdminRoute";
+import UserRoute from "./routes/UserRoute";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
   const [username, setUsername] = useState(localStorage.getItem('username'));
   const [token, setToken] = useState(localStorage.getItem('authToken'));
   const [usertype, setUsertype] = useState(localStorage.getItem('usertype'));
-  
+
   const navigate = useNavigate();
 
   useEffect(() => {
     localStorage.setItem('isAuthenticated', isAuthenticated);
     localStorage.setItem('username', username);
     localStorage.setItem('authToken', token);
-    localStorage.setItem('usertype', usertype); 
-    console.log(usertype)
+    localStorage.setItem('usertype', usertype);
+    // console.log(usertype)
   }, [isAuthenticated, username, token, usertype]);
 
   const handleLogout = () => {
@@ -48,7 +49,7 @@ function App() {
   };
 
   const isAdmin = usertype === 'admin';
-  console.log(isAuthenticated , ' usertype : ', usertype)
+  // console.log(isAuthenticated , ' usertype : ', usertype)
 
   return (
     <>
@@ -60,18 +61,26 @@ function App() {
         <Route path="/products" element={<ProductList />} />
 
         {/* Cart */}
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={
+          <UserRoute usertype={usertype}>
+            <Cart />
+          </UserRoute>
+        } />
 
         {/* Profile */}
         <Route path="/profile/order" element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
+          <UserRoute usertype={usertype}>
             <Profile isHistory={true} />
-          </ProtectedRoute>
+          </UserRoute>
+          // </ProtectedRoute>
         } />
         <Route path="/profile/history" element={
-          <ProtectedRoute>
+          // <ProtectedRoute>
+          <UserRoute usertype={usertype}>
             <Profile isHistory={false} />
-          </ProtectedRoute>
+          </UserRoute>
+          // </ProtectedRoute>
         } />
 
         {/* Auth */}
@@ -80,8 +89,8 @@ function App() {
 
         {/* Admin */}
         <Route path="/admin/clients" element={
-          
-          <AdminRoute isAuthenticated={isAuthenticated} usertype={usertype}>
+
+          <AdminRoute usertype={usertype}>
             <Admin />
           </AdminRoute>
         } />

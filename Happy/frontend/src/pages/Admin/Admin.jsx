@@ -1,12 +1,13 @@
 import React from 'react'
 import Header from '../../component/Header/Admin/Header'
 import OffCanvas from '../../component/OffCanvas/Admin/OffCanvas'
+import { Navigate } from 'react-router'
 
-const Admin = () => {
+const Admin = ({ isAdmin }) => {
   return (
     <>
-        <Header/>
-        <OffCanvas/>
+      <Header />
+      <OffCanvas />
     </>
   )
 }

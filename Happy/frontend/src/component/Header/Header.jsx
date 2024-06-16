@@ -14,33 +14,33 @@ import OffCanvas from '../OffCanvas/OffCanvas'
 
 const Header = ({ isAdmin, isProfile }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('isAuthenticated') === 'true');
-  const [username, setUsername] = useState(localStorage.getItem('username'));
-  const [token, setToken] = useState(localStorage.getItem('authToken'));
-  const [usertype, setUsertype] = useState(localStorage.getItem('usertype'));
-  
-  const navigate = useNavigate();
+    const [username, setUsername] = useState(localStorage.getItem('username'));
+    const [token, setToken] = useState(localStorage.getItem('authToken'));
+    const [usertype, setUsertype] = useState(localStorage.getItem('usertype'));
 
-  useEffect(() => {
-    localStorage.setItem('isAuthenticated', isAuthenticated);
-    localStorage.setItem('username', username);
-    localStorage.setItem('authToken', token);
-    localStorage.setItem('usertype', usertype); 
-  }, [isAuthenticated, username, token, usertype]);
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('username');
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('usertype')
+    useEffect(() => {
+        localStorage.setItem('isAuthenticated', isAuthenticated);
+        localStorage.setItem('username', username);
+        localStorage.setItem('authToken', token);
+        localStorage.setItem('usertype', usertype);
+    }, [isAuthenticated, username, token, usertype]);
 
-    setIsAuthenticated(false);
-    setUsername(null);
-    setToken(null);
-    setUsertype(null);
+    const handleLogout = () => {
+        localStorage.removeItem('isAuthenticated');
+        localStorage.removeItem('username');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('usertype')
 
-    navigate('/login');
-    window.location.reload();
-  };
+        setIsAuthenticated(false);
+        setUsername(null);
+        setToken(null);
+        setUsertype(null);
+
+        navigate('/login');
+        window.location.reload();
+    };
 
 
     return (
@@ -99,7 +99,7 @@ const Header = ({ isAdmin, isProfile }) => {
 
                             <ul class="dropdown-menu">
                                 {isAdmin ?
-                                    <li><Link to={"/admin/clietns"} class="dropdown-item" href="#">CRM проверка</Link></li>
+                                    <li><Link to={"/admin/clients"} class="dropdown-item" href="#">CRM проверка</Link></li>
                                     :
                                     <li><Link to={"/profile/order"} class="dropdown-item" href="#">Настройки</Link></li>
                                 }
@@ -121,13 +121,20 @@ const Header = ({ isAdmin, isProfile }) => {
                     {isProfile == false ?
                         <>
                             {isAuthenticated ?
-                                <><Link to={'/cart'} className="cart-container ms-2 me-3">
-                                    <img src={cart} alt="Cart" className="cart-icon" />
-                                    <span className="cart-count">12</span>
-                                </Link>
-                                    <span className="me-3">|</span></>
+                                <>
+                                    {isAdmin ?
+                                        <></>
+                                        :
+                                        <><Link to={'/cart'} className="cart-container ms-2 me-3">
+                                            <img src={cart} alt="Cart" className="cart-icon" />
+                                            <span className="cart-count">12</span>
+                                        </Link>
+                                            <span className="me-3">|</span></>
+                                    }
+                                </>
                                 :
                                 <></>
+
                             }
                         </>
                         :
